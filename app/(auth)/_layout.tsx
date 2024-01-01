@@ -1,6 +1,17 @@
-import { Stack } from "expo-router";
+import { useSession } from "@ynssenem/lext";
+import { Stack, useRouter } from "expo-router";
+import { useEffect } from "react";
 
 const Auth = () => {
+  const router = useRouter();
+  const { session } = useSession();
+  console.log(session);
+
+  useEffect(() => {
+    if (session?.jwt) {
+      router.push("/(tabs)");
+    }
+  }, []);
   return (
     <Stack
       screenOptions={{

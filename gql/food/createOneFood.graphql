@@ -1,0 +1,6 @@
+mutation CreateOneFood($data: FoodCreateInput!) {
+  createOneFood(data: $data) {
+    id
+    boxId
+  }
+}

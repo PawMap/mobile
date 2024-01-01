@@ -1,0 +1,14 @@
+query Boxes {
+  boxes {
+    id
+    location
+    updatedAt
+    createdById
+    createdBy {
+      id
+      name
+    }
+    animal
+    createdAt
+  }
+}

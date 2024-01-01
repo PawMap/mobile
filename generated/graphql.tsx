@@ -1831,6 +1831,33 @@ export type UserWhereUniqueInput = {
   phone?: InputMaybe<Scalars['String']>;
 };
 
+export type BoxesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BoxesQuery = { __typename?: 'Query', boxes: Array<{ __typename?: 'Box', id: number, location: any, updatedAt: any, createdById: number, animal: Animal, createdAt: any, createdBy: { __typename?: 'User', id: number, name?: string | null } }> };
+
+export type CreateOneBoxMutationVariables = Exact<{
+  data: BoxCreateInput;
+}>;
+
+
+export type CreateOneBoxMutation = { __typename?: 'Mutation', createOneBox: { __typename?: 'Box', id: number } };
+
+export type CreateOneFoodMutationVariables = Exact<{
+  data: FoodCreateInput;
+}>;
+
+
+export type CreateOneFoodMutation = { __typename?: 'Mutation', createOneFood: { __typename?: 'Food', id: number, boxId: number } };
+
+export type FoodsQueryVariables = Exact<{
+  where?: InputMaybe<FoodWhereInput>;
+  orderBy?: InputMaybe<Array<FoodOrderByWithRelationInput> | FoodOrderByWithRelationInput>;
+}>;
+
+
+export type FoodsQuery = { __typename?: 'Query', foods: Array<{ __typename?: 'Food', boxId: number, createdAt: any, expiredAt: any, foodType: FoodType, id: number, location: any, photo?: string | null, updatedAt: any, box: { __typename?: 'Box', animal: Animal, createdAt: any, location: any, id: number, updatedAt: any, createdBy: { __typename?: 'User', name?: string | null, id: number, createdAt: any, type?: Role | null, updatedAt: any } } }> };
+
 export type LoginMutationVariables = Exact<{
   data: LoginInput;
 }>;
@@ -1854,6 +1881,173 @@ export type VerifyMutationVariables = Exact<{
 export type VerifyMutation = { __typename?: 'Mutation', verify: { __typename?: 'UserAuthPayload', token: string, id: number, phone: string, type: string, name?: string | null } };
 
 
+export const BoxesDocument = gql`
+    query Boxes {
+  boxes {
+    id
+    location
+    updatedAt
+    createdById
+    createdBy {
+      id
+      name
+    }
+    animal
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useBoxesQuery__
+ *
+ * To run a query within a React component, call `useBoxesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBoxesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBoxesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBoxesQuery(baseOptions?: Apollo.QueryHookOptions<BoxesQuery, BoxesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BoxesQuery, BoxesQueryVariables>(BoxesDocument, options);
+      }
+export function useBoxesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BoxesQuery, BoxesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BoxesQuery, BoxesQueryVariables>(BoxesDocument, options);
+        }
+export type BoxesQueryHookResult = ReturnType<typeof useBoxesQuery>;
+export type BoxesLazyQueryHookResult = ReturnType<typeof useBoxesLazyQuery>;
+export type BoxesQueryResult = Apollo.QueryResult<BoxesQuery, BoxesQueryVariables>;
+export const CreateOneBoxDocument = gql`
+    mutation CreateOneBox($data: BoxCreateInput!) {
+  createOneBox(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateOneBoxMutationFn = Apollo.MutationFunction<CreateOneBoxMutation, CreateOneBoxMutationVariables>;
+
+/**
+ * __useCreateOneBoxMutation__
+ *
+ * To run a mutation, you first call `useCreateOneBoxMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneBoxMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneBoxMutation, { data, loading, error }] = useCreateOneBoxMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneBoxMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneBoxMutation, CreateOneBoxMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneBoxMutation, CreateOneBoxMutationVariables>(CreateOneBoxDocument, options);
+      }
+export type CreateOneBoxMutationHookResult = ReturnType<typeof useCreateOneBoxMutation>;
+export type CreateOneBoxMutationResult = Apollo.MutationResult<CreateOneBoxMutation>;
+export type CreateOneBoxMutationOptions = Apollo.BaseMutationOptions<CreateOneBoxMutation, CreateOneBoxMutationVariables>;
+export const CreateOneFoodDocument = gql`
+    mutation CreateOneFood($data: FoodCreateInput!) {
+  createOneFood(data: $data) {
+    id
+    boxId
+  }
+}
+    `;
+export type CreateOneFoodMutationFn = Apollo.MutationFunction<CreateOneFoodMutation, CreateOneFoodMutationVariables>;
+
+/**
+ * __useCreateOneFoodMutation__
+ *
+ * To run a mutation, you first call `useCreateOneFoodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneFoodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneFoodMutation, { data, loading, error }] = useCreateOneFoodMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneFoodMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneFoodMutation, CreateOneFoodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneFoodMutation, CreateOneFoodMutationVariables>(CreateOneFoodDocument, options);
+      }
+export type CreateOneFoodMutationHookResult = ReturnType<typeof useCreateOneFoodMutation>;
+export type CreateOneFoodMutationResult = Apollo.MutationResult<CreateOneFoodMutation>;
+export type CreateOneFoodMutationOptions = Apollo.BaseMutationOptions<CreateOneFoodMutation, CreateOneFoodMutationVariables>;
+export const FoodsDocument = gql`
+    query Foods($where: FoodWhereInput, $orderBy: [FoodOrderByWithRelationInput!]) {
+  foods(where: $where, orderBy: $orderBy) {
+    boxId
+    createdAt
+    expiredAt
+    foodType
+    id
+    location
+    photo
+    updatedAt
+    box {
+      animal
+      createdAt
+      createdBy {
+        name
+        id
+        createdAt
+        type
+        updatedAt
+      }
+      location
+      id
+      updatedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useFoodsQuery__
+ *
+ * To run a query within a React component, call `useFoodsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFoodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFoodsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useFoodsQuery(baseOptions?: Apollo.QueryHookOptions<FoodsQuery, FoodsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FoodsQuery, FoodsQueryVariables>(FoodsDocument, options);
+      }
+export function useFoodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FoodsQuery, FoodsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FoodsQuery, FoodsQueryVariables>(FoodsDocument, options);
+        }
+export type FoodsQueryHookResult = ReturnType<typeof useFoodsQuery>;
+export type FoodsLazyQueryHookResult = ReturnType<typeof useFoodsLazyQuery>;
+export type FoodsQueryResult = Apollo.QueryResult<FoodsQuery, FoodsQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($data: LoginInput!) {
   login(data: $data) {

@@ -1,0 +1,26 @@
+query Foods($where: FoodWhereInput, $orderBy: [FoodOrderByWithRelationInput!]) {
+  foods(where: $where, orderBy: $orderBy) {
+    boxId
+    createdAt
+    expiredAt
+    foodType
+    id
+    location
+    photo
+    updatedAt
+    box {
+      animal
+      createdAt
+      createdBy {
+        name
+        id
+        createdAt
+        type
+        updatedAt
+      }
+      location
+      id
+      updatedAt
+    }
+  }
+}
