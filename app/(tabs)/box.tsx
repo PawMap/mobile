@@ -64,6 +64,28 @@ const AddFood = () => {
           title: "Please select animal",
           message: "Please select animal",
         });
+      if (!session) {
+        Alert({
+          title: "Please login",
+          message: "Please login",
+        });
+        return router.push("/(auth)/login");
+      }
+      console.log(
+        "🌵💜🐢",
+        JSON.stringify({
+          data: {
+            animal: animal as Animal,
+            createdBy: {
+              connect: {
+                id: session?.id,
+              },
+            },
+            location: location,
+          },
+        })
+      );
+
       const { data } = await addBox({
         variables: {
           data: {
@@ -77,11 +99,15 @@ const AddFood = () => {
           },
         },
       });
-      if (data?.createOneBox) {
+      if (data?.createOneBox.id) {
         router.push("/(tabs)");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log("🌵💜🐢 error", error);
+      Alert({
+        title: "Error",
+        message: error.message,
+      });
     }
   };
 
@@ -90,7 +116,7 @@ const AddFood = () => {
       <Box>
         <SelectBox
           layout={{
-            label: "Select branch",
+            label: "Select Animal",
             right: (
               <ActionButton
                 variant="transparent"

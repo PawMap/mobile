@@ -1,0 +1,14 @@
+query GetBox($where: BoxWhereUniqueInput!) {
+  getBox(where: $where) {
+    animal
+    id
+    location
+    updatedAt
+    createdById
+    createdBy {
+      id
+      name
+    }
+    createdAt
+  }
+}

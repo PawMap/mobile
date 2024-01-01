@@ -2,7 +2,7 @@ query Foods($where: FoodWhereInput, $orderBy: [FoodOrderByWithRelationInput!]) {
   foods(where: $where, orderBy: $orderBy) {
     boxId
     createdAt
-    expiredAt
+    rate
     foodType
     id
     location

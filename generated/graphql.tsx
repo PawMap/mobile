@@ -58,19 +58,19 @@ export enum Animal {
 
 export type Box = {
   __typename?: 'Box';
-  Food: Array<Food>;
   _count?: Maybe<BoxCount>;
   animal: Animal;
   createdAt: Scalars['DateTime'];
   createdBy: User;
   createdById: Scalars['Int'];
+  foods: Array<Food>;
   id: Scalars['Int'];
   location: Scalars['JSON'];
   updatedAt: Scalars['DateTime'];
 };
 
 
-export type BoxFoodArgs = {
+export type BoxFoodsArgs = {
   cursor?: InputMaybe<FoodWhereUniqueInput>;
   distinct?: InputMaybe<Array<FoodScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<FoodOrderByWithRelationInput>>;
@@ -92,7 +92,7 @@ export type BoxAvgOrderByAggregateInput = {
 
 export type BoxCount = {
   __typename?: 'BoxCount';
-  Food: Scalars['Int'];
+  foods: Scalars['Int'];
 };
 
 export type BoxCountAggregate = {
@@ -116,10 +116,10 @@ export type BoxCountOrderByAggregateInput = {
 };
 
 export type BoxCreateInput = {
-  Food?: InputMaybe<FoodCreateNestedManyWithoutBoxInput>;
   animal: Animal;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   createdBy: UserCreateNestedOneWithoutMyBoxesInput;
+  foods?: InputMaybe<FoodCreateNestedManyWithoutBoxInput>;
   location: Scalars['JSON'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -153,10 +153,10 @@ export type BoxCreateNestedManyWithoutCreatedByInput = {
   createMany?: InputMaybe<BoxCreateManyCreatedByInputEnvelope>;
 };
 
-export type BoxCreateNestedOneWithoutFoodInput = {
+export type BoxCreateNestedOneWithoutFoodsInput = {
   connect?: InputMaybe<BoxWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<BoxCreateOrConnectWithoutFoodInput>;
-  create?: InputMaybe<BoxCreateWithoutFoodInput>;
+  connectOrCreate?: InputMaybe<BoxCreateOrConnectWithoutFoodsInput>;
+  create?: InputMaybe<BoxCreateWithoutFoodsInput>;
 };
 
 export type BoxCreateOrConnectWithoutCreatedByInput = {
@@ -164,20 +164,20 @@ export type BoxCreateOrConnectWithoutCreatedByInput = {
   where: BoxWhereUniqueInput;
 };
 
-export type BoxCreateOrConnectWithoutFoodInput = {
-  create: BoxCreateWithoutFoodInput;
+export type BoxCreateOrConnectWithoutFoodsInput = {
+  create: BoxCreateWithoutFoodsInput;
   where: BoxWhereUniqueInput;
 };
 
 export type BoxCreateWithoutCreatedByInput = {
-  Food?: InputMaybe<FoodCreateNestedManyWithoutBoxInput>;
   animal: Animal;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  foods?: InputMaybe<FoodCreateNestedManyWithoutBoxInput>;
   location: Scalars['JSON'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type BoxCreateWithoutFoodInput = {
+export type BoxCreateWithoutFoodsInput = {
   animal: Animal;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   createdBy: UserCreateNestedOneWithoutMyBoxesInput;
@@ -259,11 +259,11 @@ export type BoxOrderByWithAggregationInput = {
 };
 
 export type BoxOrderByWithRelationInput = {
-  Food?: InputMaybe<FoodOrderByRelationAggregateInput>;
   animal?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   createdBy?: InputMaybe<UserOrderByWithRelationInput>;
   createdById?: InputMaybe<SortOrder>;
+  foods?: InputMaybe<FoodOrderByRelationAggregateInput>;
   id?: InputMaybe<SortOrder>;
   location?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -319,10 +319,10 @@ export type BoxSumOrderByAggregateInput = {
 };
 
 export type BoxUpdateInput = {
-  Food?: InputMaybe<FoodUpdateManyWithoutBoxNestedInput>;
   animal?: InputMaybe<EnumAnimalFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdBy?: InputMaybe<UserUpdateOneRequiredWithoutMyBoxesNestedInput>;
+  foods?: InputMaybe<FoodUpdateManyWithoutBoxNestedInput>;
   location?: InputMaybe<Scalars['JSON']>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -353,12 +353,12 @@ export type BoxUpdateManyWithoutCreatedByNestedInput = {
   upsert?: InputMaybe<Array<BoxUpsertWithWhereUniqueWithoutCreatedByInput>>;
 };
 
-export type BoxUpdateOneRequiredWithoutFoodNestedInput = {
+export type BoxUpdateOneRequiredWithoutFoodsNestedInput = {
   connect?: InputMaybe<BoxWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<BoxCreateOrConnectWithoutFoodInput>;
-  create?: InputMaybe<BoxCreateWithoutFoodInput>;
-  update?: InputMaybe<BoxUpdateWithoutFoodInput>;
-  upsert?: InputMaybe<BoxUpsertWithoutFoodInput>;
+  connectOrCreate?: InputMaybe<BoxCreateOrConnectWithoutFoodsInput>;
+  create?: InputMaybe<BoxCreateWithoutFoodsInput>;
+  update?: InputMaybe<BoxUpdateWithoutFoodsInput>;
+  upsert?: InputMaybe<BoxUpsertWithoutFoodsInput>;
 };
 
 export type BoxUpdateWithWhereUniqueWithoutCreatedByInput = {
@@ -367,14 +367,14 @@ export type BoxUpdateWithWhereUniqueWithoutCreatedByInput = {
 };
 
 export type BoxUpdateWithoutCreatedByInput = {
-  Food?: InputMaybe<FoodUpdateManyWithoutBoxNestedInput>;
   animal?: InputMaybe<EnumAnimalFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  foods?: InputMaybe<FoodUpdateManyWithoutBoxNestedInput>;
   location?: InputMaybe<Scalars['JSON']>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
-export type BoxUpdateWithoutFoodInput = {
+export type BoxUpdateWithoutFoodsInput = {
   animal?: InputMaybe<EnumAnimalFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   createdBy?: InputMaybe<UserUpdateOneRequiredWithoutMyBoxesNestedInput>;
@@ -388,20 +388,20 @@ export type BoxUpsertWithWhereUniqueWithoutCreatedByInput = {
   where: BoxWhereUniqueInput;
 };
 
-export type BoxUpsertWithoutFoodInput = {
-  create: BoxCreateWithoutFoodInput;
-  update: BoxUpdateWithoutFoodInput;
+export type BoxUpsertWithoutFoodsInput = {
+  create: BoxCreateWithoutFoodsInput;
+  update: BoxUpdateWithoutFoodsInput;
 };
 
 export type BoxWhereInput = {
   AND?: InputMaybe<Array<BoxWhereInput>>;
-  Food?: InputMaybe<FoodListRelationFilter>;
   NOT?: InputMaybe<Array<BoxWhereInput>>;
   OR?: InputMaybe<Array<BoxWhereInput>>;
   animal?: InputMaybe<EnumAnimalFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<UserRelationFilter>;
   createdById?: InputMaybe<IntFilter>;
+  foods?: InputMaybe<FoodListRelationFilter>;
   id?: InputMaybe<IntFilter>;
   location?: InputMaybe<JsonFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -501,69 +501,95 @@ export type EnumRoleNullableWithAggregatesFilter = {
 
 export type Food = {
   __typename?: 'Food';
+  addedBy: User;
+  addedById: Scalars['Int'];
   box: Box;
   boxId: Scalars['Int'];
   createdAt: Scalars['DateTime'];
-  expiredAt: Scalars['DateTime'];
   foodType: FoodType;
   id: Scalars['Int'];
   location: Scalars['JSON'];
   photo?: Maybe<Scalars['String']>;
+  rate?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['DateTime'];
 };
 
 export type FoodAvgAggregate = {
   __typename?: 'FoodAvgAggregate';
+  addedById?: Maybe<Scalars['Float']>;
   boxId?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
+  rate?: Maybe<Scalars['Float']>;
 };
 
 export type FoodAvgOrderByAggregateInput = {
+  addedById?: InputMaybe<SortOrder>;
   boxId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  rate?: InputMaybe<SortOrder>;
 };
 
 export type FoodCountAggregate = {
   __typename?: 'FoodCountAggregate';
   _all: Scalars['Int'];
+  addedById: Scalars['Int'];
   boxId: Scalars['Int'];
   createdAt: Scalars['Int'];
-  expiredAt: Scalars['Int'];
   foodType: Scalars['Int'];
   id: Scalars['Int'];
   location: Scalars['Int'];
   photo: Scalars['Int'];
+  rate: Scalars['Int'];
   updatedAt: Scalars['Int'];
 };
 
 export type FoodCountOrderByAggregateInput = {
+  addedById?: InputMaybe<SortOrder>;
   boxId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  expiredAt?: InputMaybe<SortOrder>;
   foodType?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   location?: InputMaybe<SortOrder>;
   photo?: InputMaybe<SortOrder>;
+  rate?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type FoodCreateInput = {
-  box: BoxCreateNestedOneWithoutFoodInput;
+  addedBy: UserCreateNestedOneWithoutMyFoodsInput;
+  box: BoxCreateNestedOneWithoutFoodsInput;
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiredAt: Scalars['DateTime'];
   foodType: FoodType;
   location: Scalars['JSON'];
   photo?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type FoodCreateManyBoxInput = {
+export type FoodCreateManyAddedByInput = {
+  boxId: Scalars['Int'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiredAt: Scalars['DateTime'];
   foodType: FoodType;
   id?: InputMaybe<Scalars['Int']>;
   location: Scalars['JSON'];
   photo?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FoodCreateManyAddedByInputEnvelope = {
+  data: Array<FoodCreateManyAddedByInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FoodCreateManyBoxInput = {
+  addedById: Scalars['Int'];
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  foodType: FoodType;
+  id?: InputMaybe<Scalars['Int']>;
+  location: Scalars['JSON'];
+  photo?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -573,14 +599,22 @@ export type FoodCreateManyBoxInputEnvelope = {
 };
 
 export type FoodCreateManyInput = {
+  addedById: Scalars['Int'];
   boxId: Scalars['Int'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiredAt: Scalars['DateTime'];
   foodType: FoodType;
   id?: InputMaybe<Scalars['Int']>;
   location: Scalars['JSON'];
   photo?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FoodCreateNestedManyWithoutAddedByInput = {
+  connect?: InputMaybe<Array<FoodWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<FoodCreateOrConnectWithoutAddedByInput>>;
+  create?: InputMaybe<Array<FoodCreateWithoutAddedByInput>>;
+  createMany?: InputMaybe<FoodCreateManyAddedByInputEnvelope>;
 };
 
 export type FoodCreateNestedManyWithoutBoxInput = {
@@ -590,17 +624,33 @@ export type FoodCreateNestedManyWithoutBoxInput = {
   createMany?: InputMaybe<FoodCreateManyBoxInputEnvelope>;
 };
 
+export type FoodCreateOrConnectWithoutAddedByInput = {
+  create: FoodCreateWithoutAddedByInput;
+  where: FoodWhereUniqueInput;
+};
+
 export type FoodCreateOrConnectWithoutBoxInput = {
   create: FoodCreateWithoutBoxInput;
   where: FoodWhereUniqueInput;
 };
 
-export type FoodCreateWithoutBoxInput = {
+export type FoodCreateWithoutAddedByInput = {
+  box: BoxCreateNestedOneWithoutFoodsInput;
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiredAt: Scalars['DateTime'];
   foodType: FoodType;
   location: Scalars['JSON'];
   photo?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FoodCreateWithoutBoxInput = {
+  addedBy: UserCreateNestedOneWithoutMyFoodsInput;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  foodType: FoodType;
+  location: Scalars['JSON'];
+  photo?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -611,13 +661,14 @@ export type FoodGroupBy = {
   _max?: Maybe<FoodMaxAggregate>;
   _min?: Maybe<FoodMinAggregate>;
   _sum?: Maybe<FoodSumAggregate>;
+  addedById: Scalars['Int'];
   boxId: Scalars['Int'];
   createdAt: Scalars['DateTime'];
-  expiredAt: Scalars['DateTime'];
   foodType: FoodType;
   id: Scalars['Int'];
   location: Scalars['JSON'];
   photo?: Maybe<Scalars['String']>;
+  rate?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -629,43 +680,47 @@ export type FoodListRelationFilter = {
 
 export type FoodMaxAggregate = {
   __typename?: 'FoodMaxAggregate';
+  addedById?: Maybe<Scalars['Int']>;
   boxId?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  expiredAt?: Maybe<Scalars['DateTime']>;
   foodType?: Maybe<FoodType>;
   id?: Maybe<Scalars['Int']>;
   photo?: Maybe<Scalars['String']>;
+  rate?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type FoodMaxOrderByAggregateInput = {
+  addedById?: InputMaybe<SortOrder>;
   boxId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  expiredAt?: InputMaybe<SortOrder>;
   foodType?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   photo?: InputMaybe<SortOrder>;
+  rate?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type FoodMinAggregate = {
   __typename?: 'FoodMinAggregate';
+  addedById?: Maybe<Scalars['Int']>;
   boxId?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  expiredAt?: Maybe<Scalars['DateTime']>;
   foodType?: Maybe<FoodType>;
   id?: Maybe<Scalars['Int']>;
   photo?: Maybe<Scalars['String']>;
+  rate?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type FoodMinOrderByAggregateInput = {
+  addedById?: InputMaybe<SortOrder>;
   boxId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  expiredAt?: InputMaybe<SortOrder>;
   foodType?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   photo?: InputMaybe<SortOrder>;
+  rate?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
@@ -679,36 +734,40 @@ export type FoodOrderByWithAggregationInput = {
   _max?: InputMaybe<FoodMaxOrderByAggregateInput>;
   _min?: InputMaybe<FoodMinOrderByAggregateInput>;
   _sum?: InputMaybe<FoodSumOrderByAggregateInput>;
+  addedById?: InputMaybe<SortOrder>;
   boxId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  expiredAt?: InputMaybe<SortOrder>;
   foodType?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   location?: InputMaybe<SortOrder>;
   photo?: InputMaybe<SortOrder>;
+  rate?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type FoodOrderByWithRelationInput = {
+  addedBy?: InputMaybe<UserOrderByWithRelationInput>;
+  addedById?: InputMaybe<SortOrder>;
   box?: InputMaybe<BoxOrderByWithRelationInput>;
   boxId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  expiredAt?: InputMaybe<SortOrder>;
   foodType?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   location?: InputMaybe<SortOrder>;
   photo?: InputMaybe<SortOrder>;
+  rate?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
 export enum FoodScalarFieldEnum {
+  addedById = 'addedById',
   boxId = 'boxId',
   createdAt = 'createdAt',
-  expiredAt = 'expiredAt',
   foodType = 'foodType',
   id = 'id',
   location = 'location',
   photo = 'photo',
+  rate = 'rate',
   updatedAt = 'updatedAt'
 }
 
@@ -716,13 +775,14 @@ export type FoodScalarWhereInput = {
   AND?: InputMaybe<Array<FoodScalarWhereInput>>;
   NOT?: InputMaybe<Array<FoodScalarWhereInput>>;
   OR?: InputMaybe<Array<FoodScalarWhereInput>>;
+  addedById?: InputMaybe<IntFilter>;
   boxId?: InputMaybe<IntFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  expiredAt?: InputMaybe<DateTimeFilter>;
   foodType?: InputMaybe<EnumFoodTypeFilter>;
   id?: InputMaybe<IntFilter>;
   location?: InputMaybe<JsonFilter>;
   photo?: InputMaybe<StringNullableFilter>;
+  rate?: InputMaybe<IntNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
@@ -730,25 +790,30 @@ export type FoodScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<FoodScalarWhereWithAggregatesInput>>;
   NOT?: InputMaybe<Array<FoodScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<FoodScalarWhereWithAggregatesInput>>;
+  addedById?: InputMaybe<IntWithAggregatesFilter>;
   boxId?: InputMaybe<IntWithAggregatesFilter>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
-  expiredAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   foodType?: InputMaybe<EnumFoodTypeWithAggregatesFilter>;
   id?: InputMaybe<IntWithAggregatesFilter>;
   location?: InputMaybe<JsonWithAggregatesFilter>;
   photo?: InputMaybe<StringNullableWithAggregatesFilter>;
+  rate?: InputMaybe<IntNullableWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
 
 export type FoodSumAggregate = {
   __typename?: 'FoodSumAggregate';
+  addedById?: Maybe<Scalars['Int']>;
   boxId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  rate?: Maybe<Scalars['Int']>;
 };
 
 export type FoodSumOrderByAggregateInput = {
+  addedById?: InputMaybe<SortOrder>;
   boxId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  rate?: InputMaybe<SortOrder>;
 };
 
 export enum FoodType {
@@ -757,27 +822,47 @@ export enum FoodType {
 }
 
 export type FoodUpdateInput = {
-  box?: InputMaybe<BoxUpdateOneRequiredWithoutFoodNestedInput>;
+  addedBy?: InputMaybe<UserUpdateOneRequiredWithoutMyFoodsNestedInput>;
+  box?: InputMaybe<BoxUpdateOneRequiredWithoutFoodsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiredAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   foodType?: InputMaybe<EnumFoodTypeFieldUpdateOperationsInput>;
   location?: InputMaybe<Scalars['JSON']>;
   photo?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  rate?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type FoodUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiredAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   foodType?: InputMaybe<EnumFoodTypeFieldUpdateOperationsInput>;
   location?: InputMaybe<Scalars['JSON']>;
   photo?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  rate?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type FoodUpdateManyWithWhereWithoutAddedByInput = {
+  data: FoodUpdateManyMutationInput;
+  where: FoodScalarWhereInput;
 };
 
 export type FoodUpdateManyWithWhereWithoutBoxInput = {
   data: FoodUpdateManyMutationInput;
   where: FoodScalarWhereInput;
+};
+
+export type FoodUpdateManyWithoutAddedByNestedInput = {
+  connect?: InputMaybe<Array<FoodWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<FoodCreateOrConnectWithoutAddedByInput>>;
+  create?: InputMaybe<Array<FoodCreateWithoutAddedByInput>>;
+  createMany?: InputMaybe<FoodCreateManyAddedByInputEnvelope>;
+  delete?: InputMaybe<Array<FoodWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<FoodScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<FoodWhereUniqueInput>>;
+  set?: InputMaybe<Array<FoodWhereUniqueInput>>;
+  update?: InputMaybe<Array<FoodUpdateWithWhereUniqueWithoutAddedByInput>>;
+  updateMany?: InputMaybe<Array<FoodUpdateManyWithWhereWithoutAddedByInput>>;
+  upsert?: InputMaybe<Array<FoodUpsertWithWhereUniqueWithoutAddedByInput>>;
 };
 
 export type FoodUpdateManyWithoutBoxNestedInput = {
@@ -794,18 +879,40 @@ export type FoodUpdateManyWithoutBoxNestedInput = {
   upsert?: InputMaybe<Array<FoodUpsertWithWhereUniqueWithoutBoxInput>>;
 };
 
+export type FoodUpdateWithWhereUniqueWithoutAddedByInput = {
+  data: FoodUpdateWithoutAddedByInput;
+  where: FoodWhereUniqueInput;
+};
+
 export type FoodUpdateWithWhereUniqueWithoutBoxInput = {
   data: FoodUpdateWithoutBoxInput;
   where: FoodWhereUniqueInput;
 };
 
-export type FoodUpdateWithoutBoxInput = {
+export type FoodUpdateWithoutAddedByInput = {
+  box?: InputMaybe<BoxUpdateOneRequiredWithoutFoodsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiredAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   foodType?: InputMaybe<EnumFoodTypeFieldUpdateOperationsInput>;
   location?: InputMaybe<Scalars['JSON']>;
   photo?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  rate?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type FoodUpdateWithoutBoxInput = {
+  addedBy?: InputMaybe<UserUpdateOneRequiredWithoutMyFoodsNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  foodType?: InputMaybe<EnumFoodTypeFieldUpdateOperationsInput>;
+  location?: InputMaybe<Scalars['JSON']>;
+  photo?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  rate?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type FoodUpsertWithWhereUniqueWithoutAddedByInput = {
+  create: FoodCreateWithoutAddedByInput;
+  update: FoodUpdateWithoutAddedByInput;
+  where: FoodWhereUniqueInput;
 };
 
 export type FoodUpsertWithWhereUniqueWithoutBoxInput = {
@@ -818,14 +925,16 @@ export type FoodWhereInput = {
   AND?: InputMaybe<Array<FoodWhereInput>>;
   NOT?: InputMaybe<Array<FoodWhereInput>>;
   OR?: InputMaybe<Array<FoodWhereInput>>;
+  addedBy?: InputMaybe<UserRelationFilter>;
+  addedById?: InputMaybe<IntFilter>;
   box?: InputMaybe<BoxRelationFilter>;
   boxId?: InputMaybe<IntFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  expiredAt?: InputMaybe<DateTimeFilter>;
   foodType?: InputMaybe<EnumFoodTypeFilter>;
   id?: InputMaybe<IntFilter>;
   location?: InputMaybe<JsonFilter>;
   photo?: InputMaybe<StringNullableFilter>;
+  rate?: InputMaybe<IntNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
@@ -841,6 +950,33 @@ export type IntFilter = {
   lt?: InputMaybe<Scalars['Int']>;
   lte?: InputMaybe<Scalars['Int']>;
   not?: InputMaybe<NestedIntFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type IntNullableFilter = {
+  equals?: InputMaybe<Scalars['Int']>;
+  gt?: InputMaybe<Scalars['Int']>;
+  gte?: InputMaybe<Scalars['Int']>;
+  in?: InputMaybe<Array<Scalars['Int']>>;
+  lt?: InputMaybe<Scalars['Int']>;
+  lte?: InputMaybe<Scalars['Int']>;
+  not?: InputMaybe<NestedIntNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type IntNullableWithAggregatesFilter = {
+  _avg?: InputMaybe<NestedFloatNullableFilter>;
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedIntNullableFilter>;
+  _min?: InputMaybe<NestedIntNullableFilter>;
+  _sum?: InputMaybe<NestedIntNullableFilter>;
+  equals?: InputMaybe<Scalars['Int']>;
+  gt?: InputMaybe<Scalars['Int']>;
+  gte?: InputMaybe<Scalars['Int']>;
+  in?: InputMaybe<Array<Scalars['Int']>>;
+  lt?: InputMaybe<Scalars['Int']>;
+  lte?: InputMaybe<Scalars['Int']>;
+  not?: InputMaybe<NestedIntNullableWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['Int']>>;
 };
 
@@ -1156,6 +1292,17 @@ export type NestedFloatFilter = {
   notIn?: InputMaybe<Array<Scalars['Float']>>;
 };
 
+export type NestedFloatNullableFilter = {
+  equals?: InputMaybe<Scalars['Float']>;
+  gt?: InputMaybe<Scalars['Float']>;
+  gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
+  lt?: InputMaybe<Scalars['Float']>;
+  lte?: InputMaybe<Scalars['Float']>;
+  not?: InputMaybe<NestedFloatNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
 export type NestedIntFilter = {
   equals?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
@@ -1175,6 +1322,22 @@ export type NestedIntNullableFilter = {
   lt?: InputMaybe<Scalars['Int']>;
   lte?: InputMaybe<Scalars['Int']>;
   not?: InputMaybe<NestedIntNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type NestedIntNullableWithAggregatesFilter = {
+  _avg?: InputMaybe<NestedFloatNullableFilter>;
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedIntNullableFilter>;
+  _min?: InputMaybe<NestedIntNullableFilter>;
+  _sum?: InputMaybe<NestedIntNullableFilter>;
+  equals?: InputMaybe<Scalars['Int']>;
+  gt?: InputMaybe<Scalars['Int']>;
+  gte?: InputMaybe<Scalars['Int']>;
+  in?: InputMaybe<Array<Scalars['Int']>>;
+  lt?: InputMaybe<Scalars['Int']>;
+  lte?: InputMaybe<Scalars['Int']>;
+  not?: InputMaybe<NestedIntNullableWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['Int']>>;
 };
 
@@ -1274,6 +1437,14 @@ export type NestedStringWithAggregatesFilter = {
 
 export type NullableEnumRoleFieldUpdateOperationsInput = {
   set?: InputMaybe<Role>;
+};
+
+export type NullableIntFieldUpdateOperationsInput = {
+  decrement?: InputMaybe<Scalars['Int']>;
+  divide?: InputMaybe<Scalars['Int']>;
+  increment?: InputMaybe<Scalars['Int']>;
+  multiply?: InputMaybe<Scalars['Int']>;
+  set?: InputMaybe<Scalars['Int']>;
 };
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -1599,6 +1770,7 @@ export type UserAvgOrderByAggregateInput = {
 export type UserCount = {
   __typename?: 'UserCount';
   myBoxes: Scalars['Int'];
+  myFoods: Scalars['Int'];
 };
 
 export type UserCountAggregate = {
@@ -1624,6 +1796,7 @@ export type UserCountOrderByAggregateInput = {
 export type UserCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   myBoxes?: InputMaybe<BoxCreateNestedManyWithoutCreatedByInput>;
+  myFoods?: InputMaybe<FoodCreateNestedManyWithoutAddedByInput>;
   name?: InputMaybe<Scalars['String']>;
   phone: Scalars['String'];
   type?: InputMaybe<Role>;
@@ -1645,13 +1818,34 @@ export type UserCreateNestedOneWithoutMyBoxesInput = {
   create?: InputMaybe<UserCreateWithoutMyBoxesInput>;
 };
 
+export type UserCreateNestedOneWithoutMyFoodsInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutMyFoodsInput>;
+  create?: InputMaybe<UserCreateWithoutMyFoodsInput>;
+};
+
 export type UserCreateOrConnectWithoutMyBoxesInput = {
   create: UserCreateWithoutMyBoxesInput;
   where: UserWhereUniqueInput;
 };
 
+export type UserCreateOrConnectWithoutMyFoodsInput = {
+  create: UserCreateWithoutMyFoodsInput;
+  where: UserWhereUniqueInput;
+};
+
 export type UserCreateWithoutMyBoxesInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  myFoods?: InputMaybe<FoodCreateNestedManyWithoutAddedByInput>;
+  name?: InputMaybe<Scalars['String']>;
+  phone: Scalars['String'];
+  type?: InputMaybe<Role>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type UserCreateWithoutMyFoodsInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  myBoxes?: InputMaybe<BoxCreateNestedManyWithoutCreatedByInput>;
   name?: InputMaybe<Scalars['String']>;
   phone: Scalars['String'];
   type?: InputMaybe<Role>;
@@ -1734,6 +1928,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   myBoxes?: InputMaybe<BoxOrderByRelationAggregateInput>;
+  myFoods?: InputMaybe<FoodOrderByRelationAggregateInput>;
   name?: InputMaybe<SortOrder>;
   phone?: InputMaybe<SortOrder>;
   type?: InputMaybe<SortOrder>;
@@ -1778,6 +1973,7 @@ export type UserSumOrderByAggregateInput = {
 export type UserUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   myBoxes?: InputMaybe<BoxUpdateManyWithoutCreatedByNestedInput>;
+  myFoods?: InputMaybe<FoodUpdateManyWithoutAddedByNestedInput>;
   name?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   phone?: InputMaybe<StringFieldUpdateOperationsInput>;
   type?: InputMaybe<NullableEnumRoleFieldUpdateOperationsInput>;
@@ -1800,8 +1996,26 @@ export type UserUpdateOneRequiredWithoutMyBoxesNestedInput = {
   upsert?: InputMaybe<UserUpsertWithoutMyBoxesInput>;
 };
 
+export type UserUpdateOneRequiredWithoutMyFoodsNestedInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutMyFoodsInput>;
+  create?: InputMaybe<UserCreateWithoutMyFoodsInput>;
+  update?: InputMaybe<UserUpdateWithoutMyFoodsInput>;
+  upsert?: InputMaybe<UserUpsertWithoutMyFoodsInput>;
+};
+
 export type UserUpdateWithoutMyBoxesInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  myFoods?: InputMaybe<FoodUpdateManyWithoutAddedByNestedInput>;
+  name?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  phone?: InputMaybe<StringFieldUpdateOperationsInput>;
+  type?: InputMaybe<NullableEnumRoleFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type UserUpdateWithoutMyFoodsInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  myBoxes?: InputMaybe<BoxUpdateManyWithoutCreatedByNestedInput>;
   name?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   phone?: InputMaybe<StringFieldUpdateOperationsInput>;
   type?: InputMaybe<NullableEnumRoleFieldUpdateOperationsInput>;
@@ -1813,6 +2027,11 @@ export type UserUpsertWithoutMyBoxesInput = {
   update: UserUpdateWithoutMyBoxesInput;
 };
 
+export type UserUpsertWithoutMyFoodsInput = {
+  create: UserCreateWithoutMyFoodsInput;
+  update: UserUpdateWithoutMyFoodsInput;
+};
+
 export type UserWhereInput = {
   AND?: InputMaybe<Array<UserWhereInput>>;
   NOT?: InputMaybe<Array<UserWhereInput>>;
@@ -1820,6 +2039,7 @@ export type UserWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
   myBoxes?: InputMaybe<BoxListRelationFilter>;
+  myFoods?: InputMaybe<FoodListRelationFilter>;
   name?: InputMaybe<StringNullableFilter>;
   phone?: InputMaybe<StringFilter>;
   type?: InputMaybe<EnumRoleNullableFilter>;
@@ -1830,6 +2050,13 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']>;
   phone?: InputMaybe<Scalars['String']>;
 };
+
+export type GetBoxQueryVariables = Exact<{
+  where: BoxWhereUniqueInput;
+}>;
+
+
+export type GetBoxQuery = { __typename?: 'Query', getBox?: { __typename?: 'Box', animal: Animal, id: number, location: any, updatedAt: any, createdById: number, createdAt: any, createdBy: { __typename?: 'User', id: number, name?: string | null } } | null };
 
 export type BoxesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1856,7 +2083,7 @@ export type FoodsQueryVariables = Exact<{
 }>;
 
 
-export type FoodsQuery = { __typename?: 'Query', foods: Array<{ __typename?: 'Food', boxId: number, createdAt: any, expiredAt: any, foodType: FoodType, id: number, location: any, photo?: string | null, updatedAt: any, box: { __typename?: 'Box', animal: Animal, createdAt: any, location: any, id: number, updatedAt: any, createdBy: { __typename?: 'User', name?: string | null, id: number, createdAt: any, type?: Role | null, updatedAt: any } } }> };
+export type FoodsQuery = { __typename?: 'Query', foods: Array<{ __typename?: 'Food', boxId: number, createdAt: any, rate?: number | null, foodType: FoodType, id: number, location: any, photo?: string | null, updatedAt: any, box: { __typename?: 'Box', animal: Animal, createdAt: any, location: any, id: number, updatedAt: any, createdBy: { __typename?: 'User', name?: string | null, id: number, createdAt: any, type?: Role | null, updatedAt: any } } }> };
 
 export type LoginMutationVariables = Exact<{
   data: LoginInput;
@@ -1872,6 +2099,13 @@ export type ResendCodeMutationVariables = Exact<{
 
 export type ResendCodeMutation = { __typename?: 'Mutation', resendCode: { __typename?: 'UserLoginPayload', id: number } };
 
+export type UserQueryVariables = Exact<{
+  where: UserWhereUniqueInput;
+}>;
+
+
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: number, name?: string | null, phone: string, type?: Role | null } | null };
+
 export type VerifyMutationVariables = Exact<{
   verifyId: Scalars['Float'];
   code: Scalars['String'];
@@ -1881,6 +2115,50 @@ export type VerifyMutationVariables = Exact<{
 export type VerifyMutation = { __typename?: 'Mutation', verify: { __typename?: 'UserAuthPayload', token: string, id: number, phone: string, type: string, name?: string | null } };
 
 
+export const GetBoxDocument = gql`
+    query GetBox($where: BoxWhereUniqueInput!) {
+  getBox(where: $where) {
+    animal
+    id
+    location
+    updatedAt
+    createdById
+    createdBy {
+      id
+      name
+    }
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetBoxQuery__
+ *
+ * To run a query within a React component, call `useGetBoxQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBoxQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBoxQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetBoxQuery(baseOptions: Apollo.QueryHookOptions<GetBoxQuery, GetBoxQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBoxQuery, GetBoxQueryVariables>(GetBoxDocument, options);
+      }
+export function useGetBoxLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBoxQuery, GetBoxQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBoxQuery, GetBoxQueryVariables>(GetBoxDocument, options);
+        }
+export type GetBoxQueryHookResult = ReturnType<typeof useGetBoxQuery>;
+export type GetBoxLazyQueryHookResult = ReturnType<typeof useGetBoxLazyQuery>;
+export type GetBoxQueryResult = Apollo.QueryResult<GetBoxQuery, GetBoxQueryVariables>;
 export const BoxesDocument = gql`
     query Boxes {
   boxes {
@@ -1996,7 +2274,7 @@ export const FoodsDocument = gql`
   foods(where: $where, orderBy: $orderBy) {
     boxId
     createdAt
-    expiredAt
+    rate
     foodType
     id
     location
@@ -2114,6 +2392,44 @@ export function useResendCodeMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type ResendCodeMutationHookResult = ReturnType<typeof useResendCodeMutation>;
 export type ResendCodeMutationResult = Apollo.MutationResult<ResendCodeMutation>;
 export type ResendCodeMutationOptions = Apollo.BaseMutationOptions<ResendCodeMutation, ResendCodeMutationVariables>;
+export const UserDocument = gql`
+    query User($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    name
+    phone
+    type
+  }
+}
+    `;
+
+/**
+ * __useUserQuery__
+ *
+ * To run a query within a React component, call `useUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUserQuery(baseOptions: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+      }
+export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+        }
+export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
+export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
+export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
 export const VerifyDocument = gql`
     mutation Verify($verifyId: Float!, $code: String!) {
   verify(id: $verifyId, code: $code) {

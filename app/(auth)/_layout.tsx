@@ -5,7 +5,6 @@ import { useEffect } from "react";
 const Auth = () => {
   const router = useRouter();
   const { session } = useSession();
-  console.log(session);
 
   useEffect(() => {
     if (session?.jwt) {

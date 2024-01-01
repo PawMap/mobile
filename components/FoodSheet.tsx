@@ -9,11 +9,13 @@ import {
   Group,
   Stack,
   Text,
+  useSession,
 } from "@ynssenem/lext";
 import { useRouter } from "expo-router";
 import React, { useRef } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { useFoodsQuery } from "../generated/graphql";
+import { SortOrder, useFoodsQuery, useGetBoxQuery } from "../generated/graphql";
+import dayjs from "dayjs";
 
 const FoodSheet = ({
   id,
@@ -23,8 +25,9 @@ const FoodSheet = ({
   bottomSheetRef: any;
 }) => {
   const router = useRouter();
+  const { session } = useSession();
   const { data, loading, error } = useFoodsQuery({
-    nextFetchPolicy: "network-only",
+    fetchPolicy: "network-only",
     variables: {
       where: {
         box: {
@@ -35,26 +38,52 @@ const FoodSheet = ({
           },
         },
       },
+      orderBy: {
+        createdAt: SortOrder.desc,
+      },
     },
+  });
+  const { data: boxData, loading: boxLoading } = useGetBoxQuery({
+    variables: {
+      where: {
+        id: id,
+      },
+    },
+    fetchPolicy: "network-only",
   });
   return (
     <BottomSheet ref={bottomSheetRef} snaps={[50, 75, 85]}>
       <Box>
-        <Group>
-          {data?.foods && <Text>{data?.foods[0]?.box.animal}</Text>}
-
-          <Button
-            onPress={() => {
-              router.push({
-                pathname: "/addfood",
-                params: {
-                  id: id,
-                },
-              });
-            }}
-          >
-            <Text>Add Food</Text>
-          </Button>
+        <Group justifyContent="space-between">
+          {boxData?.getBox && (
+            <Stack>
+              <Text>Animal: {boxData.getBox?.animal}</Text>
+              <Text>
+                Creation Date:{" "}
+                {dayjs(boxData.getBox?.createdAt).format("DD/MM/YYYY")}
+              </Text>
+              {boxData.getBox?.createdBy.name && (
+                <Text>Creation By: {boxData.getBox.createdBy.name}</Text>
+              )}
+            </Stack>
+          )}
+          {session?.jwt && (
+            <Button
+              onPress={() => {
+                router.push({
+                  pathname: "/(tabs)/addfood",
+                  params: {
+                    id: id,
+                  },
+                });
+                bottomSheetRef.current?.snapToIndex(0);
+              }}
+              color="secondary"
+              activeOpacity={0.9}
+            >
+              Add Food
+            </Button>
+          )}
         </Group>
       </Box>
       <Divider />
@@ -81,25 +110,26 @@ const FoodSheet = ({
                 <Stack>
                   <Text>
                     <Text fontFamily="500">Date: </Text>
-                    {boxDetail.createdAt}
+                    {dayjs(boxDetail.createdAt).format("DD/MM/YYYY HH:mm")}
                   </Text>
                   <Text>
-                    <Text fontFamily="500">Expired Date: </Text>
-                    {boxDetail.expiredAt}
+                    <Text fontFamily="500">Food Rate: </Text>%{boxDetail.rate}
                   </Text>
                   <Text>
-                    <Text>Food Rate: </Text>
+                    <Text>Food Type: </Text>
                     {boxDetail.foodType}
                   </Text>
                 </Stack>
               </Group>
-              <Anchor
-                onPress={() => {
-                  console.log("🌵💜🐢", "go to photo :D");
-                }}
-              >
-                <MaterialIcons name="insert-photo" size={24} color="black" />
-              </Anchor>
+              {boxDetail.photo && (
+                <Anchor
+                  onPress={() => {
+                    console.log("🌵💜🐢", "go to photo :D");
+                  }}
+                >
+                  <MaterialIcons name="insert-photo" size={24} color="black" />
+                </Anchor>
+              )}
             </Group>
           </Box>
         ))}

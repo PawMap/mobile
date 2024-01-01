@@ -28,10 +28,16 @@ const Verify = () => {
   const { id } = params;
   const [verify] = useVerifyMutation();
   const [resendCode] = useResendCodeMutation();
-  const { signIn } = useSession();
+  const { signIn, session } = useSession();
 
   useEffect(() => {
     setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (session?.jwt) {
+      router.push("/(tabs)");
+    }
   }, []);
 
   useEffect(() => {

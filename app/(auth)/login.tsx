@@ -8,18 +8,26 @@ import {
   TextInput,
   View,
   useLoadingOverlay,
+  useSession,
 } from "@ynssenem/lext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground } from "react-native";
 import validate from "google-libphonenumber";
 import { useRouter } from "expo-router";
 import { useLoginMutation } from "../../generated/graphql";
+import { log } from "console";
 
 const Login = () => {
   const [phone, setPhone] = useState("");
   const router = useRouter();
   const { setLoading } = useLoadingOverlay();
   const [login] = useLoginMutation();
+  const { session } = useSession();
+  useEffect(() => {
+    if (session?.jwt) {
+      router.push("/(tabs)");
+    }
+  }, []);
 
   const handleSendCode = async () => {
     if (!phone) return;
@@ -36,6 +44,7 @@ const Login = () => {
           },
         },
       });
+      console.log(data?.login);
 
       if (data?.login.id) {
         router.push({
