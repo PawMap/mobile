@@ -7,17 +7,28 @@ import {
   Text,
   TextInput,
   useLoadingOverlay,
+  useSession,
 } from "@ynssenem/lext";
 import React, { useEffect, useState } from "react";
 import { ImageBackground } from "react-native";
 import layout from "../../constants/layout";
 import { useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
+import {
+  useResendCodeMutation,
+  useVerifyMutation,
+} from "../../generated/graphql";
 
 const Verify = () => {
   const [code, setCode] = useState("");
   const [timer, setTimer] = useState(60);
   const { setLoading } = useLoadingOverlay();
   const router = useRouter();
+  const params = useLocalSearchParams();
+  const { id } = params;
+  const [verify] = useVerifyMutation();
+  const [resendCode] = useResendCodeMutation();
+  const { signIn } = useSession();
 
   useEffect(() => {
     setLoading(false);
@@ -31,10 +42,33 @@ const Verify = () => {
     }
   }, [timer]);
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     if (!code) return;
-    console.log("verify");
-    router.push("/(tabs)");
+    const { data, errors } = await verify({
+      variables: {
+        code,
+        verifyId: +id,
+      },
+    });
+
+    if (data?.verify.token) {
+      router.push("/(tabs)");
+      signIn({
+        id: data.verify.id,
+        jwt: data.verify.token,
+      });
+    }
+  };
+
+  const handleResendCode = async () => {
+    const { data, errors } = await resendCode({
+      variables: {
+        resendCodeId: +id,
+      },
+    });
+    if (data?.resendCode) {
+      setTimer(120);
+    }
   };
 
   return (
@@ -70,10 +104,7 @@ const Verify = () => {
               margin={0}
               alignItems="center"
             >
-              <Anchor
-                onPress={() => console.log("🌵💜🐢", "resend")}
-                disabled={timer !== 0}
-              >
+              <Anchor onPress={handleResendCode} disabled={timer !== 0}>
                 {timer > 0 ? `Resend Code in ${timer}` : "Resend Code"}
               </Anchor>
             </Box>

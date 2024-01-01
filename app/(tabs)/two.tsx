@@ -1,8 +1,17 @@
 import { StyleSheet } from "react-native";
 
-import { Text, View } from "@ynssenem/lext";
+import { Text, View, useSession } from "@ynssenem/lext";
+import { useEffect } from "react";
+import { useRouter } from "expo-router";
 
 export default function TabTwoScreen() {
+  const { session } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (!session?.jwt) {
+      router.push("/(auth)/login");
+    }
+  }, [session]);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Two</Text>

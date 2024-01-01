@@ -13,21 +13,39 @@ import React, { useState } from "react";
 import { ImageBackground } from "react-native";
 import validate from "google-libphonenumber";
 import { useRouter } from "expo-router";
+import { useLoginMutation } from "../../generated/graphql";
 
 const Login = () => {
   const [phone, setPhone] = useState("");
   const router = useRouter();
   const { setLoading } = useLoadingOverlay();
+  const [login] = useLoginMutation();
 
-  const handleSendCode = () => {
+  const handleSendCode = async () => {
     if (!phone) return;
     const phoneUtil = validate.PhoneNumberUtil.getInstance();
     const number = phoneUtil.parseAndKeepRawInput(phone, "TR");
     const isValid = phoneUtil.isValidNumber(number);
     if (isValid) {
-      console.log("valid");
-      router.push("/(auth)/verify");
-      setLoading(true);
+      const { data, errors } = await login({
+        variables: {
+          data: {
+            phone: phoneUtil
+              .format(number, validate.PhoneNumberFormat.E164)
+              .replace("+", ""),
+          },
+        },
+      });
+
+      if (data?.login.id) {
+        router.push({
+          pathname: "/(auth)/verify",
+          params: {
+            id: data?.login.id,
+          },
+        });
+        setLoading(true);
+      }
     } else {
       console.log("invalid");
     }

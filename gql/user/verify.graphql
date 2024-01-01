@@ -1,0 +1,9 @@
+mutation Verify($verifyId: Float!, $code: String!) {
+  verify(id: $verifyId, code: $code) {
+    token
+    id
+    phone
+    type
+    name
+  }
+}

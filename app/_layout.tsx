@@ -7,11 +7,15 @@ import { useColorScheme } from "react-native";
 import {
   LoadingOverlay,
   LoadingOverlayProvider,
+  SessionProvider,
   Text,
   ThemeProvider,
   createTheme,
   useLoadingOverlay,
+  useSession,
 } from "@ynssenem/lext";
+import ApolloProvider from "../apollo/Provider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -68,14 +72,18 @@ function RootLayoutNav() {
       },
     },
   });
-
+  const { session } = useSession();
   return (
     <ThemeProvider theme={theme} gestureHandlerRootView>
       <LoadingOverlayProvider content={<Text>LLL</Text>}>
-        <Stack>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
+        <SessionProvider storage={AsyncStorage}>
+          <ApolloProvider token={session?.jwt}>
+            <Stack>
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            </Stack>
+          </ApolloProvider>
+        </SessionProvider>
       </LoadingOverlayProvider>
     </ThemeProvider>
   );

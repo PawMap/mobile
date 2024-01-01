@@ -1,0 +1,5 @@
+mutation ResendCode($resendCodeId: Float!) {
+  resendCode(id: $resendCodeId) {
+    id
+  }
+}
