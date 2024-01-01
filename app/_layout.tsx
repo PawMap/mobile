@@ -2,7 +2,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 import {
   LoadingOverlay,
@@ -10,6 +10,7 @@ import {
   Text,
   ThemeProvider,
   createTheme,
+  useLoadingOverlay,
 } from "@ynssenem/lext";
 
 export {

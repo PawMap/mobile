@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "transparent"
+      "backgroundColor": "#2D384C"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -20,8 +20,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "transparent",
-        "resizeMode": "contain"
+        "backgroundColor": "#2D384C"
       },
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
@@ -53,6 +52,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3ba8fccd-b006-482c-9e8b-a3ae6d67ab8a"
+      }
     }
   }
 }
